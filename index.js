@@ -198,6 +198,12 @@ traceBackward(5);
  * students - масив об'єктів-студентів.
  */
 function displayGroupedInfo(students) {
+  for (let student of students) {
+    console.group(`Студент: ${student.name}`);
+    console.info(`Вік: ${student.age}`);
+    console.info(`Предмет: ${student.subject}`);
+    console.groupEnd();
+  }
   // Переберомо об'єкт за допомого for of
   // Створимо групу з повідомленням `Студент: ${student.name}`
   // Виведемо корисне повідомлення з текстом `Вік: ${student.age}`
@@ -230,6 +236,11 @@ displayGroupedInfo([
  *  userInput - об'єкт з введеними користувачем даними.
  */
 function validateUserInput(userInput) {
+  console.assert(userInput.username, "Помилка: ім'я користувача відсутнє!");
+  console.assert(userInput.password, "Помилка: пароль відсутній!");
+  if (userInput.password && userInput.password.length < 8) {
+    console.warn("Попередження: пароль має бути довшим за 8 символів!");
+  }
   // Перевіремо умову наявності імені користувача, якщо воно відсутнє виводимо "Помилка: ім'я користувача відсутнє!"
   // Перевіремо умову наявності паролю, якщо він відсутній виводимо "Помилка: пароль відсутній!"
   // Перевірка довжини паролю чи менше вона ніж 8,якщо ні виводимо повідомлення про потенційну проблему з текстом "Попередження: пароль має бути довшим за 8 символів!"
@@ -247,6 +258,13 @@ validateUserInput({ username: "alex", password: "pass" });
  * products - Масив об'єктів товарів з властивостями `price` та `title`.
  */
 function calculateTotalPrice(products) {
+  console.time("calculateTotalPrice");
+  let total = 0;
+  for (let product of products) {
+    total += product.price;
+  }
+  console.log("Загальна вартість товарів:", total);
+  console.timeEnd("calculateTotalPrice");
   // Початок вимірювання часу
   // Створення змінної total яка буде нашою загальную ціною, початкове значення нуль
   // Перебираємо кожен об'єкт товару та додаємо ціну товару до загальної вартості
@@ -273,6 +291,17 @@ calculateTotalPrice(products);
  *  word - слово, для якого потрібно порахувати кількість літер.
  */
 function countVowelsAndConsonants(word) {
+  const vowels = "aeiou";
+  for (let letter of word) {
+    letter = letter.toLowerCase();
+    if (vowels.includes(letter)) {
+      console.count("Голосна");
+    } else {
+      console.count("Приголосна");
+    }
+  }
+  console.countReset("Голосна");
+  console.countReset("Приголосна");
   // Створюємо рядок де будуть всі голосні "aeiou"
   // Перебираємо кожну літеру у слові за допомогою for of
   // Перетворюємо літеру на малу літеру для порівняння
